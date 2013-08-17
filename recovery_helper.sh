@@ -86,8 +86,7 @@ get_action(){
 get_recover_dir(){
 	RECOVER_DIR=''
 	clear_input
-	echo -n "Recovery directory (${LAST_RECOVER_DIR}): "
-	read -e RECOVER_DIR
+	read -e -p "Recovery directory: " -i "${LAST_RECOVER_DIR}" RECOVER_DIR
 	if [ -z "$RECOVER_DIR" ]; then
 		RECOVER_DIR="$LAST_RECOVER_DIR"
 	else
@@ -101,8 +100,7 @@ custom_viewer(){
 		LAST_VIEWER="$VIEWER"
 	fi
 	clear_input
-	echo -n "Custom viewer ($LAST_VIEWER): "
-	read -e CUSTOM_VIEWER
+	read -e -p "Custom viewer ($LAST_VIEWER): " CUSTOM_VIEWER
 	if [ ! -z "$CUSTOM_VIEWER" ]; then
 		LAST_VIEWER="$CUSTOM_VIEWER"
 	fi
