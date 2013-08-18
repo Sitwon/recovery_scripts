@@ -92,6 +92,35 @@ get_recover_dir(){
 	else
 		LAST_RECOVER_DIR="$RECOVER_DIR"
 	fi
+	if [ -e "$RECOVER_DIR" ]; then
+		if [ -f "$RECOVER_DIR" ]; then
+			echo "File exists: \"$RECOVER_DIR\""
+			while true; do
+				CONFIRM=''
+				clear_input
+				read -p "Are you sure? (Y/n): " -d '' -n 1 CONFIRM
+				echo
+				case "$CONFIRM" in
+					n|N)
+						get_recover_dir
+						break
+						;;
+					y|Y|'')
+						break
+						;;
+					*)
+						echo "Invalid selection: '$CHOICE'"
+						;;
+				esac
+			done
+		fi
+	else
+		if [ "${RECOVER_DIR: -1}" = "/" ]; then
+			mkdir -p "$RECOVER_DIR"
+		elif [ ! -d "$(dirname "$RECOVER_DIR")" ]; then
+			mkdir -p "$(dirname "$RECOVER_DIR")"
+		fi
+	fi
 }
 
 custom_viewer(){
